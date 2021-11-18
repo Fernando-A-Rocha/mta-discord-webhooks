@@ -45,7 +45,7 @@ function makeVehicleCmd(thePlayer, commandName, ...)
 
         local logMsg = "**"..getPlayerName(thePlayer).."** has created a `"..name.." (#"..modelID..")` at "..getElementZoneName(thePlayer).."."
         
-        exports.discord:msg("admin-logs", logMsg) -- Send the log message to #admin-logs in our Discord server
+        exports.discord_w:msg("admin-logs", logMsg) -- Send the log message to #admin-logs in our Discord server
 	end
 end
 addCommandHandler("spawnveh", makeVehicleCmd, false, false)
