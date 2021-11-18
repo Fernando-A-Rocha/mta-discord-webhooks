@@ -4,7 +4,7 @@
     <!-- DOCUMENTATION:
         https://github.com/Fernando-A-Rocha/mta-discord-webhooks
     -->
-    <info author="Fernando" name="mta-discord-webhooks" description="simple scripts to use Discord Webhooks in your MTA server" version="1.2.0" type="script"/>
+    <info author="Fernando" name="mta-discord-webhooks" description="simple scripts to use Discord Webhooks in your MTA server" version="1.0" type="script"/>
 
 	<script src="webhookC.lua" type="client" />
 	<script src="webhookG.lua" type="server" />
