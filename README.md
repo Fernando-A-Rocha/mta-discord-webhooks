@@ -8,7 +8,9 @@ Check out [botder](https://github.com/botder)'s [mtasa-discord-bot](https://gith
 
 # Install
 
-Place the [discord_w](https://github.com/Fernando-A-Rocha/mta-discord-webhooks/tree/main/discord_w) folder in your server `resources` folder
+- Download the latest stable release: [here](https://github.com/Fernando-A-Rocha/mta-discord-webhooks/releases/latest)
+
+- Place the [discord_w](https://github.com/Fernando-A-Rocha/mta-discord-webhooks/tree/main/discord_w) folder in your server `resources` folder
 
 # Tutorial
 
