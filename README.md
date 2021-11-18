@@ -2,8 +2,6 @@
 
 Simple resource for using Discord Webhooks in a Multi Theft Auto: San Andreas server
 
-# Related
-
 Check out [botder](https://github.com/botder)'s [mtasa-discord-bot](https://github.com/botder/mtasa-discord-bot) that lets you fully connect Bots to your MTA:SA server
 
 # Install
