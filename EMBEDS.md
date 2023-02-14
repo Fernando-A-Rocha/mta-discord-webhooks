@@ -1,3 +1,5 @@
+![Banner](/.github/images/banner.png)
+
 # Embed Messages
 
 A Message Embed represents a Discord Embed object. An Embed object is another component of Discord messages that can be used to present data with special formatting and structure.
@@ -130,3 +132,5 @@ The following message attributes in the `message` table structure are **currentl
 ```
 
 *Inspiration: [discord.js Embeds](https://discordjs.guide/popular-topics/embeds.html#embeds)*
+
+## [Go back to the main page](/README.md)
