@@ -10,7 +10,7 @@ E.g.:
 
 In reality, for the Discord API, an embed is represented as a JSON object. This resource mimics the [Embed Structure (Discord Developer Portal)](https://discord.com/developers/docs/resources/channel#embed-object-embed-structure) format expected.
 
-The `Embed message` argument you pass to the exported functions is a `table` with a **specific structure**, similar to the JSON object expected by the Discord API, with some useful features.
+The `Embed message` argument you pass to the exported functions is a Lua `table` with a **specific structure**, similar to the JSON object expected by the Discord API, with some useful features.
 
 All attributes are optional.
 
@@ -18,8 +18,8 @@ All attributes are optional.
 - `description` (string): embed description
 - `url` (string): embed URL on the title
 - `timestamp` (number|string): embed timestamp
-  - "now": current timestamp
   - number: timestamp in milliseconds
+  - "now": current timestamp
 - `color` (number): embed color (integer hexadecimal number)
 - `thumbnail` (table): embed thumbnail image
   - `url` (string): thumbnail image URL
@@ -47,7 +47,7 @@ All attributes are optional.
 - To **display fields side-by-side**, you need at least **two consecutive fields set to inline**.
 - **Mentions** of any kind in embeds will only render correctly within embed **description and field** values
 - **Mentions** in embeds will **not trigger a notification**
-- Embeds allow **masked links** (e.g. `[Guide](https://discordjs.guide/optionaltext)`), but only in **description and field** values
+- Embeds allow **masked links** (e.g. `[Guide](https://example.com/guide)`), but only in **description and field** values
 
 ### Embed limits
 

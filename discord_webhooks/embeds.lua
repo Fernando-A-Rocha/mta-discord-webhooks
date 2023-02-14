@@ -163,9 +163,9 @@ end
 -- Returns a ISO 8061 formatted timestamp in UTC (Z)
 -- e.g. 2021-09-21T15:20:44.323Z
 local function iso_8061_timestamp(now)
-    local ms = math.floor((now % 1) * 1000) -- 323 or 324 (rounding)
+    local ms = math.floor((now % 1) * 1000) -- never happens because getRealTime returns integer seconds
     local epochSeconds = math.floor(now)
-    return os.date("!%Y-%m-%dT%T", epochSeconds) .. "." .. ms .. "Z" -- 2021-09-21T15:20:44.323Z
+    return os.date("!%Y-%m-%dT%T", epochSeconds) .. "." .. ms .. "Z"
 end
 
 -- Inverse of tocolor
