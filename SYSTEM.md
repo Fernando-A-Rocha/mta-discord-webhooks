@@ -55,7 +55,7 @@ Validates a message to be sent to a webhook.
 
 ## `Message`
 
-A message can be a **string** (regular text message only) or a **table** (embed(s) and/or regular text message(s)) with the following possible formats:
+A message can be a **string** (regular text message only) or a **table** (embed(s) and/or regular text message) with the following possible formats:
 
 - A single ([Embed](#embed)) table
 - An ordered table with multiple [Embeds](#embed)
