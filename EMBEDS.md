@@ -76,23 +76,6 @@ There are a few limits to be aware of while planning your embeds due to Discord 
 
 *Source: [Discord API documentation - Channel Embed Object Limits](https://discord.com/developers/docs/resources/channel#embed-object-embed-limits)*
 
-# Other remarks
-
-The following message attributes in the `message` table structure are **currently being ignored** by this resource:
-
-- `username`
-- `avatar_url`
-- `tts`
-- `allowed_mentions`
-- `components`
-- `files`
-- `payload_json`
-- `attachments`
-- `flags`
-- `thread_name`
-
-*Source: [Discord API documentation - Webhook JSON/Form Params](https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params)*
-
 # Embed Examples
 
 ![Embed example 1](https://i.imgur.com/xHUfaJE.png)

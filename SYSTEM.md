@@ -63,6 +63,21 @@ A message can be a **string** (regular text message only) or a **table** (embed(
   - `embeds`: an ordered table with multiple [Embeds](#embed)
   - (optional) `content`: regular text message to be sent with the embed(s)
 
+The following message attributes in the `message` table structure are **currently being ignored / not supported** by the script:
+
+- `username`
+- `avatar_url`
+- `tts`
+- `allowed_mentions`
+- `components`
+- `files`
+- `payload_json`
+- `attachments`
+- `flags`
+- `thread_name`
+
+*Source: [Discord API documentation - Webhook JSON/Form Params](https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params)*
+
 ## `Embed`
 
 Access [this page](/EMBEDS.md) to learn more about Embed messages.
