@@ -8,7 +8,7 @@ E.g.:
 
 ## Structure
 
-In reality, for the Discord API, an embed is represented as a JSON object. This resource mimics the [Embed Structure (Discord Developer Portal)](https://discord.com/developers/docs/resources/channel#embed-object-embed-structure) format expected.
+In reality, for the Discord API, an embed is represented as a JSON object. This resource mimics the [Embed Structure (Discord API documentation)](https://discord.com/developers/docs/resources/channel#embed-object-embed-structure) format expected.
 
 The `Embed message` argument you pass to the exported functions is a Lua `table` with a **specific structure**, similar to the JSON object expected by the Discord API, with some useful features.
 
@@ -49,9 +49,21 @@ All attributes are optional.
 - **Mentions** in embeds will **not trigger a notification**
 - Embeds allow **masked links** (e.g. `[Guide](https://example.com/guide)`), but only in **description and field** values
 
+### Compatibility & Generating Embeds
+
+All Embed JSONs are compatible and can be converted to Lua tables using [`fromJSON`](https://wiki.multitheftauto.com/wiki/FromJSON).
+
+🎨🚧 This means you can use **interactive Embed builders** (examples below) to create your embeds and then convert them to Lua tables.
+
+- [Embed Builder by Nadeko Bot](https://eb.nadeko.bot/)
+- [Embed Visualizer by leovoel (using Webhook mode)](https://leovoel.github.io/embed-visualizer/)
+- [Embed Builder by Autocode](https://autocode.com/tools/discord/embed-builder/)
+
+Use the **exported function** `validateMessage` to check if your embeds are valid.
+
 ### Embed limits
 
-There are a few limits to be aware of while planning your embeds due to the API's limitations. Here is a quick reference you can come back to:
+There are a few limits to be aware of while planning your embeds due to Discord API limitations. Here is a quick reference you can come back to:
 
 - Embed titles are limited to 256 characters
 - Embed descriptions are limited to 4096 characters
@@ -60,9 +72,26 @@ There are a few limits to be aware of while planning your embeds due to the API'
 - The footer text is limited to 2048 characters
 - The author name is limited to 256 characters
 - The sum of all characters from all embed structures in a message must not exceed 6000 characters
-- 10 embeds can be sent per message (irrelevant in our case because we only send one embed per message)
+- 10 embeds can be sent per message
 
-*Source: [Discord API documentation](https://discord.com/developers/docs/resources/channel#embed-object-embed-limits)*
+*Source: [Discord API documentation - Channel Embed Object Limits](https://discord.com/developers/docs/resources/channel#embed-object-embed-limits)*
+
+## Other remarks
+
+The following message attributes in the `message` table structure are **currently being ignored** by this resource:
+
+- `username`
+- `avatar_url`
+- `tts`
+- `allowed_mentions`
+- `components`
+- `files`
+- `payload_json`
+- `attachments`
+- `flags`
+- `thread_name`
+
+*Source: [Discord API documentation - Webhook JSON/Form Params](https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params)*
 
 ### Example
 

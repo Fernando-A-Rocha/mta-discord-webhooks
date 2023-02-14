@@ -66,8 +66,8 @@ local function validateOneType(fieldName, value, theType, required)
 	else
 		if type(theType) == "table" then
 			local valid = false
-			for _, t in ipairs(theType) do
-				if type(value) == t then
+			for i=1, #theType do
+				if type(value) == theType[i] then
 					valid = true
 					break
 				end
@@ -108,17 +108,20 @@ local function validateEmbedFields(embed)
 				end
 				local array_types = info.array_types
 				fields[fieldName] = {}
-				for i, v in ipairs(value) do
-					for k, t in pairs(array_types) do
-						local theType2 = t.type
-						local required2 = t.required
-						local value2 = v[k]
-						local valid, err = validateOneType(fieldName.."["..i.."]."..k, value2, theType2, required2)
-						if valid == false then
-							return false, err
+				for i=1, #value do
+					local v = value[i]
+					if v then
+						for k, t in pairs(array_types) do
+							local theType2 = t.type
+							local required2 = t.required
+							local value2 = v[k]
+							local valid, err = validateOneType(fieldName.."["..i.."]."..k, value2, theType2, required2)
+							if valid == false then
+								return false, err
+							end
+							fields[fieldName][i] = fields[fieldName][i] or {}
+							fields[fieldName][i][k] = value2
 						end
-						fields[fieldName][i] = fields[fieldName][i] or {}
-						fields[fieldName][i][k] = value2
 					end
 				end
 			elseif type(theType) == "table" then
@@ -137,8 +140,8 @@ local function validateEmbedFields(embed)
 				end
 			elseif type(theTypes) == "table" then
 				local valid = false
-				for _, t in ipairs(theTypes) do
-					if type(value) == t then
+				for i=1, #theTypes do
+					if type(value) == theTypes[i] then
 						valid = true
 						break
 					end

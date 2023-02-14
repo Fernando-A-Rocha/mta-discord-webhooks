@@ -10,35 +10,70 @@
 addEvent("discord_webhooks:send", true) -- source must always be root
 addEvent("discord_webhooks:sendToURL", true) -- source must always be root
 
-local function internalSendRequest(name, url, content, callBackEvent)
-	local postData
-	if type(content) == "string" then
-		postData = {
-			content = content
+local function internalValidateMessage(message)
+	local newMessage
+	if type(message) == "string" then
+		newMessage = {
+			["content"] = message
 		}
-	elseif type(content) == "table" then
-		local valid, additional = validateEmbed(content)
-		if not valid then
-			return false, "internalSendRequest ERROR: Invalid embed: "..tostring(additional).." (argument 2)"
+	elseif type(message) == "table" then
+		if type(message.embeds) ~= "table" then
+			-- Doesn't have embeds key
+			if message[1] == nil then
+				-- Is not an ordered table, assume it's a single embed table
+				message.embeds = {message}
+			else
+				-- Is an ordered table, assume it's a list of embed tables
+				message.embeds = message
+			end
+		else
+			-- Has embeds key
+			if message.embeds[1] == nil then
+				return false, "Invalid embeds: Expected table with at least one element OR one element directly, got empty table"
+			end
+			if message.content ~= nil then
+				if type(message.content) ~= "string" then
+					return false, "Invalid content: Expected string, got "..type(message.content)
+				end
+			end
 		end
-		postData = {
-			["embeds"] = {additional}
+		for i=1, #message.embeds do
+			local embed = message.embeds[i]
+			if embed then
+				local valid, additional = validateEmbed(embed)
+				if not valid then
+					return false, "Invalid embed: "..tostring(additional).." (embeds["..tostring(i).."])"
+				end
+				message.embeds[i] = additional
+			end
+		end
+		newMessage = {
+			["content"] = message.content,
+			["embeds"] = message.embeds
 		}
 	end
-	postData = toJSON(postData, true)
+	return newMessage
+end
+
+local function internalSendRequest(name, url, message, callBackEvent)
+	local newMessage, failReason = internalValidateMessage(message)
+	if not newMessage then
+		return false, "internalSendRequest ERROR: "..tostring(failReason)
+	end
+	newMessage = toJSON(newMessage, true)
 	-- make it only JSON object and not [JSON object] (it's inside an array for no reason)
-	if string.sub(postData, 1, 1) == "[" then
-		postData = string.sub(postData, 2, -2)
+	if string.sub(newMessage, 1, 1) == "[" then
+		newMessage = string.sub(newMessage, 2, -2)
 	end
 	if (LOG_INFO_DEBUG) then
 		outputDebugString("Sending to URL '"..url.."' with data:", 3)
-		outputDebugString(postData, 3)
+		outputDebugString(newMessage, 3)
 	end
 	local function callBackFunction(responseData, responseInfo)
 		triggerEvent(callBackEvent.name, callBackEvent.source, {
 			name = name, -- false if sendToURL is used
 			url = url,
-			content = postData,
+			message = newMessage,
 			responseData = responseData,
 			responseInfo = responseInfo
 		}, unpack(callBackEvent.args or {}))
@@ -55,7 +90,7 @@ local function internalSendRequest(name, url, content, callBackEvent)
 		headers = {
 			["Content-Type"] = "application/json"
 		},
-		postData = postData,
+		postData = newMessage,
 	}, callBackFunction)
 	if not request then
 		return false, "internalSendRequest ERROR: fetchRemote failed"
@@ -63,7 +98,7 @@ local function internalSendRequest(name, url, content, callBackEvent)
 	return request
 end
 
-local function internalSend(name, content, callBackEvent)
+local function internalSend(name, message, callBackEvent)
 	if type(name) ~= "string" then
 		return false, "Bad argument @ 'send' [Expected string at argument 1, got "..type(name).."]"
 	end
@@ -71,8 +106,8 @@ local function internalSend(name, content, callBackEvent)
 	if type(url) ~= "string" then
 		return false, "Bad argument @ 'send' [Webhook name '"..name.."' (argument 1) does not have a valid URL]"
 	end
-	if not (type(content)=="string" or (type(content)=="table")) then
-		return false, "Bad argument @ 'send' [Expected string or table at argument 2, got "..type(content).."]"
+	if not (type(message)=="string" or (type(message)=="table")) then
+		return false, "Bad argument @ 'send' [Expected string or table at argument 2, got "..type(message).."]"
 	end
 	if callBackEvent ~= nil then
 		if (type(callBackEvent) ~= "table") then
@@ -88,7 +123,7 @@ local function internalSend(name, content, callBackEvent)
 			return false, "Bad argument @ 'send' [Expected table at argument 3.args, got "..type(callBackEvent.args).."]"
 		end
 	end
-	return internalSendRequest(name, url, content, callBackEvent)
+	return internalSendRequest(name, url, message, callBackEvent)
 end
 
 -- Exported function
@@ -105,16 +140,15 @@ local function isValidURL(url)
 	return url:match("[a-z]+://[^ >,;]+")
 end
 
-local function internalSendToURL(url, content, callBackEvent)
-	
+local function internalSendToURL(url, message, callBackEvent)
 	if type(url) ~= "string" then
 		return false, "Bad argument @ 'sendToURL' [Expected string at argument 1, got "..type(url).."]"
 	end
 	if not isValidURL(url) then
 		outputDebugString("sendToURL: URL may not be valid: "..url, 2)
 	end
-	if type(content) ~= "string" and type (content) ~= "table" then
-		return false, "Bad argument @ 'sendToURL' [Expected string or table at argument 2, got "..type(content).."]"
+	if type(message) ~= "string" and type (message) ~= "table" then
+		return false, "Bad argument @ 'sendToURL' [Expected string or table at argument 2, got "..type(message).."]"
 	end
 	if callBackEvent ~= nil then
 		if type(callBackEvent) ~= "table" then
@@ -137,7 +171,7 @@ local function internalSendToURL(url, content, callBackEvent)
 			break
 		end
 	end
-	return internalSendRequest(foundName, url, content, callBackEvent)
+	return internalSendRequest(foundName, url, message, callBackEvent)
 end
 
 -- Exported function
@@ -150,6 +184,15 @@ function sendToURL(...)
 end
 addEventHandler("discord_webhooks:sendToURL", root, sendToURL, false)
 
+-- Exported function
+function validateMessage(message)
+	local newMessage, failReason = internalValidateMessage(message)
+	if not newMessage then
+		return false, failReason
+	end
+	return newMessage
+end
+	
 addEventHandler("onResourceStart", resourceRoot, function()
 	if type(WEB_HOOKS) ~= "table" then
 		outputServerLog("WEB_HOOKS is not a table. Please check your config.lua file.")

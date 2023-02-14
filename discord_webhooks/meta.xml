@@ -18,4 +18,5 @@
     <!-- Exported functions -->
     <export function="send" type="server" />
     <export function="sendToURL" type="server" />
+    <export function="validateMessage" type="server" />
 </meta>

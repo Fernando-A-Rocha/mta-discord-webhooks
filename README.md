@@ -1,4 +1,4 @@
-# MTA-Discord-Webhooks
+![Banner](/.github/images/banner.png)
 
 Simple resource for using Discord Webhooks to send messages in a Multi Theft Auto: San Andreas server. Supports simple and Embed messages.
 
@@ -29,15 +29,14 @@ Check out [botder](https://github.com/botder)'s [mtasa-discord-bot Project](http
 - Add your webhook URL by assigning it a name in [config.lua](/discord_webhooks/custom/config.lua)
 - To send a message to the webhook's channel, use the functions explained below
 
-### `send(name, content, callBackEvent)` (Exported function)
+### `send(name, message, callBackEvent)` (Exported function)
 
 Sends a single message to the webhook's channel via a given webhook name.
 
 **Required arguments**:
 
-- `name` is the name of the webhook URL in [config.lua](/discord_webhooks/custom/config.lua)
-- `content`: the message to be sent
-  - This can be a string (simple message) or a table ([Embed message](#embed-message))
+- `name`: a **string** corresponding to a custom webhook name declared in [config.lua](/discord_webhooks/custom/config.lua)
+- [`message`](#message): a **mixed variable** corresponding to a message to be sent
 
 **Optional arguments**:
 
@@ -45,18 +44,17 @@ Sends a single message to the webhook's channel via a given webhook name.
 
 **Returns**:
 
-- a `request` element if the request was made successfully
-- a `string` containing the error message if there was an error before the request was made
+- a **request element** if the request was made successfully
+- a **string** containing the error message if there was an error before the request was made
 
-### `sendToURL(url, content, callBackEvent)` (Exported function)
+### `sendToURL(url, message, callBackEvent)` (Exported function)
 
 Sends a single message to the webhook's channel via a given webhook URL.
 
 **Required arguments**:
 
-- `url`: the URL of the webhook
-- `content`: the message to be sent
-  - This can be a string (simple message) or a table ([Embed message](#embed-message))
+- `url`: a **string** corresponding to a valid webhook URL
+- [`message`](#message): a **mixed variable** corresponding to a message to be sent
 
 **Optional arguments**:
 
@@ -64,12 +62,22 @@ Sends a single message to the webhook's channel via a given webhook URL.
 
 **Returns**:
 
-- a `request` element if the request was made successfully
-- a `string` containing the error message if there was an error before the request was made
+- a **request element** if the request was made successfully
+- a **string** containing the error message if there was an error before the request was made
 
 ### Variables
 
-#### `Embed message`
+### `Message`
+
+A message can be a **string** or a **table** with the following possible formats:
+
+- A single ([Embed](#embed)) table
+- An ordered table with multiple [Embeds](#embed)
+- A table with the following **string keys**:
+  - `embeds`: an ordered table with multiple [Embeds](#embed)
+  - (optional) `content`: the message to be sent with the embed(s)
+
+#### `Embed`
 
 🎨🚧 Visit [this page](/EMBEDS.md) to learn more about Embed messages.
 
@@ -77,17 +85,17 @@ Sends a single message to the webhook's channel via a given webhook URL.
 
 Table structure:
 
-- `name`: the name of the event
-- `source`: the source element of the event
-- (optional) `args`: a table with the arguments passed to the event
+- `name`: a **string** corresponding to the name of the event
+- `source`: an **MTA element** corresponding to the source which the event will be triggered with
+- (optional) `args`: a **table** with any variables which will be passed to the event (see below)
 
 E.g.: `{name = "onDiscordWebhookRequestSent", source = root, args = {thePlayer}}`
 
-The **event will be triggered** with a `table` argument, followed by the `optional arguments` that you passed to `callBackEvent`. This `table` contains the following information:
+The **event will be triggered** with a **table** argument, followed by the `optional arguments (args)` that you passed to `callBackEvent`. This **table** contains the following information:
 
 - `name`: the name of the webhook (false if no name)
 - `url`: the URL of the webhook
-- `content`: the post data sent to the webhook (JSON string)
+- `message`: the post data sent to the webhook (JSON string)
 - `responseData`: the data received from the webhook
 - `responseInfo`: the info received from the webhook
 
@@ -95,7 +103,7 @@ The **event will be triggered** with a `table` argument, followed by the `option
 triggerEvent(callBackEvent.name, callBackEvent.source, {
   name = name, -- false if sendToURL is used
   url = url,
-  content = postData,
+  message = postData,
   responseData = responseData,
   responseInfo = responseInfo
 }, unpack(callBackEvent.args or {}))
