@@ -4,7 +4,7 @@
 
 Resource for using Discord Webhooks to send messages in a Multi Theft Auto: San Andreas server. Supports simple text and Embed messages.
 
-**MTA forum topic**: Coming soon
+**MTA forum topic**: [Link](https://forum.multitheftauto.com/topic/139741-rel-discord-webhooks-tool-supports-embeds/)
 
 # What are Discord Webhooks?
 
