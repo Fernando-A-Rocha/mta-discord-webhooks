@@ -26,8 +26,10 @@ Check out [botder](https://github.com/botder)'s [mtasa-discord-bot Project](http
 
 ## Using the resource
 
-- Add your webhook URL by assigning it a name in [config.lua](/discord_webhooks/custom/config.lua)
+- Add webhook URLs by assigning names to them in [config.lua](/discord_webhooks/custom/config.lua)
 - To send a message to the webhook's channel, use the functions explained below
+
+---
 
 ### `send(name, message, callBackEvent)` (Exported function)
 
@@ -64,6 +66,8 @@ Sends a single message to the webhook's channel via a given webhook URL.
 
 - a **request element** if the request was made successfully
 - a **string** containing the error message if there was an error before the request was made
+
+---
 
 ### Variables
 
@@ -108,6 +112,8 @@ triggerEvent(callBackEvent.name, callBackEvent.source, {
   responseInfo = responseInfo
 }, unpack(callBackEvent.args or {}))
 ```
+
+---
 
 ### Error handling
 
