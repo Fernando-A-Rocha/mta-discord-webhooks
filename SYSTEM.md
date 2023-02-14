@@ -13,7 +13,7 @@ Sends a message to the webhook's channel via a given webhook name.
 
 **Optional arguments**:
 
-- [`callBackEvent`](#callbackevent): a table defining the event that will be triggered when the request is made
+- [`callBackEvent`](#callbackevent): a **table** defining the event that will be triggered when the request is made
 
 **Returns**:
 
@@ -31,7 +31,7 @@ Sends a message to the webhook's channel via a given webhook URL.
 
 **Optional arguments**:
 
-- [`callBackEvent`](#callbackevent): a table defining the event that will be triggered when the request: made
+- [`callBackEvent`](#callbackevent): a **table** defining the event that will be triggered when the request: made
 
 **Returns**:
 
