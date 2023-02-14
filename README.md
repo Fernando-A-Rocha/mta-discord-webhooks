@@ -81,7 +81,9 @@ Table structure:
 - `source`: the source element of the event
 - (optional) `args`: a table with the arguments passed to the event
 
-The event will be triggered with the following arguments:
+E.g.: `{name = "onDiscordWebhookRequestSent", source = root, args = {thePlayer}}`
+
+The **event will be triggered** with a `table` argument, followed by the `optional arguments` that you passed to `callBackEvent`. This `table` contains the following information:
 
 - `name`: the name of the webhook (false if no name)
 - `url`: the URL of the webhook
@@ -89,11 +91,21 @@ The event will be triggered with the following arguments:
 - `responseData`: the data received from the webhook
 - `responseInfo`: the info received from the webhook
 
-E.g.: `{name = "onDiscordWebhookRequestSent", source = root, args = {thePlayer}}`
+```lua
+triggerEvent(callBackEvent.name, callBackEvent.source, {
+  name = name, -- false if sendToURL is used
+  url = url,
+  content = postData,
+  responseData = responseData,
+  responseInfo = responseInfo
+}, unpack(callBackEvent.args or {}))
+```
 
-### Tips
+### Error handling
 
-It's important to always handle the return values of the exported functions. E.g.:
+You can handle the return values of the exported functions. This is important when creating complicated embeds that **you are not sure will be validated** and sent to Discord.
+
+E.g.:
 
 ```lua
 local request, failReason = exports.discord_webhooks:send("test_webhokk", "This is a test")
@@ -101,6 +113,8 @@ if not request then
     outputDebugString("discord_webhooks send failed: " .. tostring(failReason), 1)
 end
 ```
+
+In large scale usage, you may want to avoid repeating code and having to check the return values everywhere you call discord_webhooks functions. You can enable the **error logging setting** in [config.lua](/discord_webhooks/config.lua) that will automatically log any validation or argument errors to the debug console.
 
 ## Example implementations
 

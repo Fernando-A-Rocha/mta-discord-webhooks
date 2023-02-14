@@ -19,7 +19,11 @@ WEB_HOOKS = {
 	["my_webhook"] = "https://discord.com/api/webhooks/123456/abcdefgh",
 }
 
-DEBUG_ON = false -- Set to true to enable debug messages
+-- Set to true to log informative messages to debug console
+LOG_INFO_DEBUG = false
+
+-- Set to true to log errors to debug console
+LOG_ERRORS_DEBUG = true
 
 -- Custom Events for Developers:
 addEvent(RES_NAME..":send", true) -- source: must always be root
