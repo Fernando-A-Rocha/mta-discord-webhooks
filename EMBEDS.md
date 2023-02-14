@@ -133,4 +133,6 @@ The following message attributes in the `message` table structure are **currentl
 
 *Inspiration: [discord.js Embeds](https://discordjs.guide/popular-topics/embeds.html#embeds)*
 
-## [Go back to the main page](/README.md)
+## [🔗 Back to top](#)
+
+## [🔗 Back to the main page](/README.md)

@@ -118,4 +118,6 @@ It comes **activated by default**, so you can test the resource by using command
 
 To **disable the examples**, simply remove the line `<script src="custom/examples.lua" type="server"/>` from `meta.xml`.
 
-# [Go back to the main page](/README.md)
+## [🔗 Back to top](#)
+
+## [🔗 Back to the main page](/README.md)
