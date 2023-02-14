@@ -4,11 +4,9 @@
 
 A Message Embed represents a Discord Embed object. An Embed object is another component of Discord messages that can be used to present data with special formatting and structure.
 
-E.g.:
+See [Embed Examples](#embed-examples) for some pretty embed examples.
 
-![Embed example](https://i.imgur.com/xHUfaJE.png)
-
-## Structure
+# Structure
 
 In reality, for the Discord API, an embed is represented as a JSON object. This resource mimics the [Embed Structure (Discord API documentation)](https://discord.com/developers/docs/resources/channel#embed-object-embed-structure) format expected.
 
@@ -41,7 +39,7 @@ All attributes are optional.
 
 *For the full list of attributes, see [embeds.lua](/discord_webhooks/embeds.lua) (some have not been specified here for simplicity).*
 
-### Important notes
+# Important notes
 
 - `color` can be generated using the `tocolor` MTA function. It returns a **color number** (the alpha value (R,G,B,**A**) won't be sent to Discord).
 - `timestamp` can be set to **"now"** to use the current timestamp or a **number** to use a custom timestamp in **seconds**.
@@ -51,7 +49,7 @@ All attributes are optional.
 - **Mentions** in embeds will **not trigger a notification**
 - Embeds allow **masked links** (e.g. `[Guide](https://example.com/guide)`), but only in **description and field** values
 
-### Compatibility & Generating Embeds
+# Compatibility & Generating Embeds
 
 All Embed JSONs are compatible and can be converted to Lua tables using [`fromJSON`](https://wiki.multitheftauto.com/wiki/FromJSON).
 
@@ -63,7 +61,7 @@ All Embed JSONs are compatible and can be converted to Lua tables using [`fromJS
 
 Use the **exported function** `validateMessage` to check if your embeds are valid.
 
-### Embed limits
+# Embed limits
 
 There are a few limits to be aware of while planning your embeds due to Discord API limitations. Here is a quick reference you can come back to:
 
@@ -78,7 +76,7 @@ There are a few limits to be aware of while planning your embeds due to Discord 
 
 *Source: [Discord API documentation - Channel Embed Object Limits](https://discord.com/developers/docs/resources/channel#embed-object-embed-limits)*
 
-## Other remarks
+# Other remarks
 
 The following message attributes in the `message` table structure are **currently being ignored** by this resource:
 
@@ -95,7 +93,19 @@ The following message attributes in the `message` table structure are **currentl
 
 *Source: [Discord API documentation - Webhook JSON/Form Params](https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params)*
 
-### Example
+# Embed Examples
+
+![Embed example 1](https://i.imgur.com/xHUfaJE.png)
+
+![Embed example 2](https://i.imgur.com/zzES46l.png)
+
+![Embed example 3](https://i.imgur.com/AzmFZVv.png)
+
+![Embed example 4](https://i.imgur.com/gBdd6CG.png)
+
+![Embed example 5](https://i.imgur.com/YxhBZja.png)
+
+# Example Embed Lua Table
 
 ```lua
 {
