@@ -31,7 +31,9 @@ Check out [botder](https://github.com/botder)'s [mtasa-discord-bot Project](http
 
 ---
 
-### `send(name, message, callBackEvent)` (Exported function)
+### Exported functions
+
+### `send(name, message, callBackEvent)`
 
 Sends a message to the webhook's channel via a given webhook name.
 
@@ -51,7 +53,7 @@ Sends a message to the webhook's channel via a given webhook name.
 
 ---
 
-### `sendToURL(url, message, callBackEvent)` (Exported function)
+### `sendToURL(url, message, callBackEvent)`
 
 Sends a message to the webhook's channel via a given webhook URL.
 
@@ -71,7 +73,7 @@ Sends a message to the webhook's channel via a given webhook URL.
 
 ---
 
-### `validateMessage(message)` (Exported function)
+### `validateMessage(message)`
 
 Validates a message to be sent to a webhook.
 
