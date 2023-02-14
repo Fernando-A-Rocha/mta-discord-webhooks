@@ -33,7 +33,7 @@ Check out [botder](https://github.com/botder)'s [mtasa-discord-bot Project](http
 
 ### `send(name, message, callBackEvent)` (Exported function)
 
-Sends a single message to the webhook's channel via a given webhook name.
+Sends a message to the webhook's channel via a given webhook name.
 
 **Required arguments**:
 
@@ -49,9 +49,11 @@ Sends a single message to the webhook's channel via a given webhook name.
 - a **request element** if the request was made successfully
 - a **string** containing the error message if there was an error before the request was made
 
+---
+
 ### `sendToURL(url, message, callBackEvent)` (Exported function)
 
-Sends a single message to the webhook's channel via a given webhook URL.
+Sends a message to the webhook's channel via a given webhook URL.
 
 **Required arguments**:
 
@@ -69,6 +71,21 @@ Sends a single message to the webhook's channel via a given webhook URL.
 
 ---
 
+### `validateMessage(message)` (Exported function)
+
+Validates a message to be sent to a webhook.
+
+**Required arguments**:
+
+- [`message`](#message): a **mixed variable** corresponding to a message to be validated
+
+**Returns**:
+
+- a **table** containing the [message](#message) ready to be sent to the webhook if the message is valid
+- a **string** containing the error message if the message is invalid
+
+---
+
 ### Variables
 
 ### `Message`
@@ -81,9 +98,13 @@ A message can be a **string** or a **table** with the following possible formats
   - `embeds`: an ordered table with multiple [Embeds](#embed)
   - (optional) `content`: the message to be sent with the embed(s)
 
+---
+
 #### `Embed`
 
 🎨🚧 Visit [this page](/EMBEDS.md) to learn more about Embed messages.
+
+---
 
 #### `callBackEvent`
 
