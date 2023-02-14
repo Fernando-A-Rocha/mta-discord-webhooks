@@ -65,16 +65,17 @@ A message can be a **string** (regular text message only) or a **table** (embed(
 
 The following message attributes in the `message` table structure are **currently being ignored / not supported** by the script:
 
-- `username`
-- `avatar_url`
-- `tts`
 - `allowed_mentions`
-- `components`
-- `files`
-- `payload_json`
-- `attachments`
 - `flags`
 - `thread_name`
+- `components` (*)
+- `files` (**)
+- `payload_json` (**)
+- `attachments` (**)
+
+(*) Requires an application-owned webhook.
+
+(**) See [Uploading Files (Discord API documentation)](https://discord.com/developers/docs/reference#uploading-files) for details.
 
 *Source: [Discord API documentation - Webhook JSON/Form Params](https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params)*
 

@@ -10,6 +10,7 @@
 addEvent("discord_webhooks:send", true) -- source must always be root
 addEvent("discord_webhooks:sendToURL", true) -- source must always be root
 
+-- https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params
 local function internalValidateMessage(message)
 	local newMessage
 	if type(message) == "string" then
@@ -31,11 +32,34 @@ local function internalValidateMessage(message)
 			if message.embeds[1] == nil then
 				return false, "Invalid embeds: Expected table with at least one element OR one element directly, got empty table"
 			end
+			-- Check for additional message attributes
 			if message.content ~= nil then
 				if type(message.content) ~= "string" then
 					return false, "Invalid content: Expected string, got "..type(message.content)
 				end
 			end
+			if message.username ~= nil then
+				if type(message.username) ~= "string" then
+					return false, "Invalid username: Expected string, got "..type(message.username)
+				end
+			end
+			if message.avatar_url ~= nil then
+				if type(message.avatar_url) ~= "string" then
+					return false, "Invalid avatar_url: Expected string, got "..type(message.avatar_url)
+				end
+			end
+			if message.tts ~= nil then
+				if type(message.tts) ~= "boolean" then
+					return false, "Invalid tts: Expected boolean, got "..type(message.tts)
+				end
+			end
+			-- TODO:
+			-- 		allowed_mentions
+			-- 		flags
+			-- 		thread_name
+			-- 		components (require an application-owned webhook)
+			
+			-- File attachments (files[n], payload_json, attachments) will probably not be supported here
 		end
 		for i=1, #message.embeds do
 			local embed = message.embeds[i]
