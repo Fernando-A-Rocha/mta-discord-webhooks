@@ -48,3 +48,5 @@ Need help? Read the Support section on the MTA forum thread linked in the [About
 # Final Note
 
 Feel free to contribute to the project by improving the code & documentation via Pull Requests. Thank you!
+
+## [🔗 Back to top](#)
