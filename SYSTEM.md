@@ -55,17 +55,19 @@ Validates a message to be sent to a webhook.
 
 ## `Message`
 
-A message can be a **string** or a **table** with the following possible formats:
+A message can be a **string** (regular text message only) or a **table** (embed(s) and/or regular text message(s)) with the following possible formats:
 
 - A single ([Embed](#embed)) table
 - An ordered table with multiple [Embeds](#embed)
 - A table with the following **string keys**:
   - `embeds`: an ordered table with multiple [Embeds](#embed)
-  - (optional) `content`: the message to be sent with the embed(s)
+  - (optional) `content`: regular text message to be sent with the embed(s)
 
 ## `Embed`
 
-🎨🚧 Access [this page](/EMBEDS.md) to learn more about Embed messages.
+Access [this page](/EMBEDS.md) to learn more about Embed messages.
+
+🎨 A lot of customization is possible!
 
 ## `callBackEvent`
 
