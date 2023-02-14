@@ -4,6 +4,8 @@
 
 Resource for using Discord Webhooks to send messages in a Multi Theft Auto: San Andreas server. Supports simple text and Embed messages.
 
+**MTA forum topic**: Coming soon
+
 # What are Discord Webhooks?
 
 Webhooks are a low-effort way to post messages to channels in Discord. They do not require a bot user or authentication to use.
@@ -36,6 +38,12 @@ Access [this page](/SYSTEM.md) to view the full documentation.
 # Discord Bots
 
 Check out [botder](https://github.com/botder)'s [mtasa-discord-bot Project](https://github.com/botder/mtasa-discord-bot) that lets you connect a Discord Bot application to your MTA:SA server, which are more powerful than webhooks.
+
+# Support & Suggestions
+
+Found a bug? Want to suggest a feature? Feel free to open an issue in the [Issues](https://github.com/Fernando-A-Rocha/mta-discord-webhooks/issues) section.
+
+Need help? Read the Support section on the MTA forum thread linked in the [About](#about) section.
 
 # Final Note
 
