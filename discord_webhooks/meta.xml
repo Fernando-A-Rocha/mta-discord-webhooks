@@ -6,12 +6,14 @@
     <min_mta_version server="1.5.7-9.20307" />
     
     <!-- Core scripts -->
-    <script src="config.lua" type="server" />
     <script src="embeds.lua" type="server" />
     <script src="system.lua" type="server" />
+
+    <!-- Configurable settings script -->
+    <script src="custom/config.lua" type="server" />
     
     <!-- (Optional: Example implementations) -->
-    <script src="examples.lua" type="server" />
+    <script src="custom/examples.lua" type="server" />
     
     <!-- Exported functions -->
     <export function="send" type="server" />

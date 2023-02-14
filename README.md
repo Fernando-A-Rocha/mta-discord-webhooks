@@ -26,7 +26,7 @@ Check out [botder](https://github.com/botder)'s [mtasa-discord-bot Project](http
 
 ## Using the resource
 
-- Add your webhook URL by assigning it a name in [config.lua](/discord_webhooks/config.lua)
+- Add your webhook URL by assigning it a name in [config.lua](/discord_webhooks/custom/config.lua)
 - To send a message to the webhook's channel, use the functions explained below
 
 ### `send(name, content, callBackEvent)` (Exported function)
@@ -35,7 +35,7 @@ Sends a single message to the webhook's channel via a given webhook name.
 
 **Required arguments**:
 
-- `name` is the name of the webhook URL in [config.lua](/discord_webhooks/config.lua)
+- `name` is the name of the webhook URL in [config.lua](/discord_webhooks/custom/config.lua)
 - `content`: the message to be sent
   - This can be a string (simple message) or a table ([Embed message](#embed-message))
 
@@ -114,7 +114,7 @@ if not request then
 end
 ```
 
-In large scale usage, you may want to avoid repeating code and having to check the return values everywhere you call discord_webhooks functions. You can enable the **error logging setting** in [config.lua](/discord_webhooks/config.lua) that will automatically log any validation or argument errors to the debug console.
+In large scale usage, you may want to avoid repeating code and having to check the return values everywhere you call discord_webhooks functions. You can enable the **error logging setting** in [config.lua](/discord_webhooks/custom/config.lua) that will automatically log any pre-request errors to the debug console.
 
 ## Example implementations
 

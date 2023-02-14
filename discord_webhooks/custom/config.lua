@@ -3,7 +3,6 @@
 
 	Discord Webhooks MTA Resource (Config)
 ]]
-RES_NAME = getResourceName(resource)
 
 --[[
 	List of defined webhooks
@@ -19,19 +18,25 @@ WEB_HOOKS = {
 	["my_webhook"] = "https://discord.com/api/webhooks/123456/abcdefgh",
 }
 
--- Set to true to log informative messages to debug console
+-- Custom Log messages format (e.g. add prefix, etc.):
+_outputDebugString = outputDebugString
+function outputDebugString(message, ...)
+	return _outputDebugString("[Discord Webhooks] " .. tostring(message), ...)
+end
+_outputServerLog = outputServerLog
+function outputServerLog(message)
+	return _outputServerLog("[Discord Webhooks] " .. tostring(message))
+end
+
+-- Set to true to log informative messages to debug console:
 LOG_INFO_DEBUG = false
 
--- Set to true to log errors to debug console
+-- Set to true to log errors to debug console:
 LOG_ERRORS_DEBUG = true
-
--- Custom Events for Developers:
-addEvent(RES_NAME..":send", true) -- source: must always be root
-addEvent(RES_NAME..":sendToURL", true) -- source: must always be root
 
 -- (OPTIONAL) You may want to add a setting to your server's Settings Registry to disable Webhooks
 -- 		e.g. You are running a Development server which mirrors your Production server's resources
 -- 		and you want to prevent Webhooks from being triggered on the Development server
--- By default this is "@discord_webhooks.disabled"
 -- Set it to "1" or "true" to disable webhooks from being triggered
-SETTING_DISABLE = "@"..RES_NAME..".disabled"
+-- Custom Setting name:
+SETTING_DISABLE = "@discord_webhooks.disabled"

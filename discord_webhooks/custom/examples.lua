@@ -13,21 +13,13 @@ local TEST_WEBHOOK_URL = "https://discord.com/api/webhooks/1074743328454754376/Y
 -- This will assign one on runtime, so you don't need to edit the config.lua file
 WEB_HOOKS["test_webhook"] = TEST_WEBHOOK_URL
 
-addEvent("testWebHook", true)
-addEventHandler("testWebHook", root, function(info, player)
+addEvent("testWebHook-result", true)
+addEventHandler("testWebHook-result", root, function(info, player)
     if isElement(player) then
         outputChatBox("Webhook call "..(info.responseInfo.success and "#00ff00succeeded" or "#ff0000failed").." #fffffffor:", thePlayer, 255, 255, 255, true)
         outputChatBox((info.name or info.url), thePlayer, 187, 187, 187, true)
         if not info.responseInfo.success then
             outputChatBox("Check debug console for more info.", thePlayer, 255, 255, 255, true)
-            iprint(info.responseData)
-            iprint(info.responseInfo)
-        end
-    else
-        if info.responseInfo.success then
-            print("testWebHook", (info.name or info.url), "SUCCESS")
-        else
-            print("testWebHook", (info.name or info.url), "FAIL")
             iprint(info.responseData)
             iprint(info.responseInfo)
         end
@@ -39,7 +31,7 @@ local EXAMPLES = {
         local request, failReason = exports.discord_webhooks:send(
             "test_webhook",
             "**"..getPlayerName(player).."** has created a `"..vehicleName.." (#"..vehicleID..")` at "..getElementZoneName(player)..".",
-            {name="testWebHook", source=root, args={player}}
+            {name="testWebHook-result", source=root, args={player}}
         )
         if not request then
             outputChatBox(tostring(failReason), player, 255, 0, 0)
@@ -49,7 +41,7 @@ local EXAMPLES = {
         local request, failReason = exports.discord_webhooks:sendToURL(
             TEST_WEBHOOK_URL,
             "HELLO",
-            {name="testWebHook", source=root, args={player}}
+            {name="testWebHook-result", source=root, args={player}}
         )
         if not request then
             outputChatBox(tostring(failReason), player, 255, 0, 0)
@@ -101,7 +93,7 @@ local EXAMPLES = {
                     {name="Field 3", value="Value 3", inline=true},
                 }
             },
-            {name="testWebHook", source=root, args={player}}
+            {name="testWebHook-result", source=root, args={player}}
         )
         if not request then
             outputChatBox(tostring(failReason), player, 255, 0, 0)
