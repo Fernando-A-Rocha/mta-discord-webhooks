@@ -1,32 +1,52 @@
+![Banner](/.github/images/banner.png)
+
 # About
 
-Simple resource for using Discord Webhooks in a Multi Theft Auto: San Andreas server
+Resource for using Discord Webhooks to send messages in a Multi Theft Auto: San Andreas server. Supports simple text and Embed messages.
 
-Check out [botder](https://github.com/botder)'s [mtasa-discord-bot](https://github.com/botder/mtasa-discord-bot) that lets you fully connect Bots to your MTA:SA server
+**MTA forum topic**: Coming soon
 
-# Install
-
-- Download the latest stable release: [here](https://github.com/Fernando-A-Rocha/mta-discord-webhooks/releases/latest)
-
-- Place the [discord_w](https://github.com/Fernando-A-Rocha/mta-discord-webhooks/tree/main/discord_w) folder in your server `resources` folder
-
-# Tutorial
-
-## Definition
+# What are Discord Webhooks?
 
 Webhooks are a low-effort way to post messages to channels in Discord. They do not require a bot user or authentication to use.
 
-## Using
+*Source: [Discord Webhooks Guide](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)*
 
-[Official Tutorial](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks)
+# Installing the resource
 
-- Go to 'Integrations' in a channel's settings panel
+- Get the latest version: [mta-discord-webhooks/releases/latest](https://github.com/Fernando-A-Rocha/mta-discord-webhooks/releases/latest)
+- Extract the downloaded ZIP file
+- Place the `discord_webhooks` folder in your server's `resources` directory
+- Use the `refresh` command in your server's console to load the resource
+
+# Creating a Webhook
+
+- Select a Discord channel in which you have the 'Manage Webhooks' permission
+- Right click it then select 'Edit Channel'
+- Go to the 'Integrations' tab
 - Click on 'Webhooks'
 - Create a webhook, customize its name and avatar
 - Copy webhook URL
-- Add your webhook URL by assigning it a name in [webhookG.lua](/discord_w/webhookG.lua) inside `webhook_list`
-- To send a message to that channel do like the following example, it's that simple!
 
-```lua
-exports.discord_w:msg("admin-logs", "This is a test message, you can use **basic formatting**!\nAnd go to new lines like this.")
-```
+# Using the resource
+
+- Add webhook URLs by assigning names to them in [config.lua](/discord_webhooks/custom/config.lua)
+- To send a message to the webhook's channel, use the functions explained below
+
+Access [this page](/SYSTEM.md) to view the full documentation.
+
+# Discord Bots
+
+Check out [botder](https://github.com/botder)'s [mtasa-discord-bot Project](https://github.com/botder/mtasa-discord-bot) that lets you connect a Discord Bot application to your MTA:SA server, which are more powerful than webhooks.
+
+# Support & Suggestions
+
+Found a bug? Want to suggest a feature? Feel free to open an issue in the [Issues](https://github.com/Fernando-A-Rocha/mta-discord-webhooks/issues) section.
+
+Need help? Read the Support section on the MTA forum thread linked in the [About](#about) section.
+
+# Final Note
+
+Feel free to contribute to the project by improving the code & documentation via Pull Requests. Thank you!
+
+## [🔗 Back to top](#)
