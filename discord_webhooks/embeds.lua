@@ -170,12 +170,16 @@ local function iso_8061_timestamp(now)
 end
 
 -- Inverse of tocolor
-local function fromColor(color)
-	local blue = bitExtract(color, 0, 8)
-	local green = bitExtract(color, 8, 8)
-	local red = bitExtract(color, 16, 8)
-	-- local alpha = bitExtract(color, 24, 8) -- unsupported by Discord
+local function fromColor(hexColor)
+	local blue = bitExtract(hexColor, 0, 8)
+	local green = bitExtract(hexColor, 8, 8)
+	local red = bitExtract(hexColor, 16, 8)
+	-- local alpha = bitExtract(hexColor, 24, 8) -- unsupported by Discord
 	return { red, green, blue }
+end
+local function fromColorDecimal(decColor)
+	local hexColor = string.format("0x%06X", decColor)
+	return fromColor(hexColor)
 end
 
 local function rgbToHex(rgb)
@@ -224,11 +228,14 @@ function validateEmbed(embed)
 		end
 	end
 	if (additional.color ~= nil) then
-		-- check if in range of tocolor()
-		if (additional.color >= 0) and (additional.color <= 0xFFFFFFFF) then
+		if (additional.color >= 0) and (additional.color <= 16777215) then
+			-- in decimal range
+			additional.color = rgbToHex(fromColorDecimal(additional.color))
+		elseif (additional.color >= -16777216) and (additional.color <= -1) then
+			-- in hexadecimal range
 			additional.color = rgbToHex(fromColor(additional.color))
 		else
-			return false, "Invalid color. Expected a number between 0 and 0xFFFFFFFF, got '"..additional.color.."' - use tocolor(R,G,B) or 0xRRGGBB"
+			return false, "Invalid color. Expected color in hexadecimal or decimal, got '"..additional.color.."' - use tocolor(R,G,B,255) or 0xFFRRGGBB"
 		end
 	end
 	return true, additional
