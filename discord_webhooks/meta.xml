@@ -1,5 +1,5 @@
 <meta>
-    <info version="2.0.0" author="Fernando" name="mta-discord-webhooks" description="simple scripts to use Discord Webhooks in your MTA server" type="script"/>
+    <info version="2.0.1" author="Fernando" name="mta-discord-webhooks" description="simple scripts to use Discord Webhooks in your MTA server" type="script"/>
     <!-- DOCUMENTATION:
         https://github.com/Fernando-A-Rocha/mta-discord-webhooks
     -->
