@@ -13,7 +13,7 @@ local TEST_WEBHOOK_URL = "https://discord.com/api/webhooks/1074743328454754376/Y
 -- This will assign one on runtime, so you don't need to edit the config.lua file
 WEB_HOOKS["test_webhook"] = TEST_WEBHOOK_URL
 
-addEvent("testWebHook-result", true)
+addEvent("testWebHook-result", false)
 addEventHandler("testWebHook-result", root, function(info, player)
     if isElement(player) then
         outputChatBox("Webhook call "..(info.responseInfo.success and "#00ff00succeeded" or "#ff0000failed").." #fffffffor:", thePlayer, 255, 255, 255, true)

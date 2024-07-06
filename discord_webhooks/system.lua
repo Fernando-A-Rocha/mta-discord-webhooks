@@ -7,8 +7,8 @@
 ]]
 
 -- Custom Events:
-addEvent("discord_webhooks:send", true) -- source must always be root
-addEvent("discord_webhooks:sendToURL", true) -- source must always be root
+addEvent("discord_webhooks:send", false) -- source must always be root (Event cannot be triggered by remote clients)
+addEvent("discord_webhooks:sendToURL", false) -- source must always be root (Event cannot be triggered by remote clients)
 
 -- https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params
 local function internalValidateMessage(message)
