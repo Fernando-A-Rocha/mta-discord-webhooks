@@ -9,6 +9,7 @@
 -- Custom Events:
 addEvent("discord_webhooks:send", false) -- source must always be root (Event cannot be triggered by remote clients)
 addEvent("discord_webhooks:sendToURL", false) -- source must always be root (Event cannot be triggered by remote clients)
+addEvent("discord_webhooks:edit", false) -- source must always be root (Event cannot be triggered by remote clients)
 
 -- https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params
 local function internalValidateMessage(message)
@@ -122,6 +123,49 @@ local function internalSendRequest(name, url, message, callBackEvent)
 	return request
 end
 
+local function internalEditRequest(name, url, id, message, callBackEvent)
+	local newMessage, failReason = internalValidateMessage(message)
+	if not newMessage then
+		return false, "internalEditRequest ERROR: "..tostring(failReason)
+	end
+	newMessage = toJSON(newMessage, true)
+	-- make it only JSON object and not [JSON object] (it's inside an array for no reason)
+	if string.sub(newMessage, 1, 1) == "[" then
+		newMessage = string.sub(newMessage, 2, -2)
+	end
+	if (LOG_INFO_DEBUG) then
+		outputDebugString("Sending to URL '"..url.."' with data:", 3)
+		outputDebugString(newMessage, 3)
+	end
+	local function callBackFunction(responseData, responseInfo)
+		triggerEvent(callBackEvent.name, callBackEvent.source, {
+			name = name, -- false if sendToURL is used
+			url = url,
+			message = newMessage,
+			responseData = responseData,
+			responseInfo = responseInfo
+		}, unpack(callBackEvent.args or {}))
+	end
+	if callBackEvent == nil then
+		callBackFunction = function() end
+	end
+	local request = fetchRemote(url.."/messages/"..id, {
+		queueName = md5(url),
+		connectionAttempts = 3,
+		connectTimeout = 5000,
+		method = "PATCH",
+		postIsBinary = false,
+		headers = {
+			["Content-Type"] = "application/json"
+		},
+		postData = newMessage,
+	}, callBackFunction)
+	if not request then
+		return false, "internalEditRequest ERROR: fetchRemote failed"
+	end
+	return request
+end
+
 local function internalSend(name, message, callBackEvent)
 	if type(name) ~= "string" then
 		return false, "Bad argument @ 'send' [Expected string at argument 1, got "..type(name).."]"
@@ -216,6 +260,57 @@ function validateMessage(message)
 	end
 	return newMessage
 end
+
+local function isValidID(id)
+	return #id >= 17 and #id <= 21
+end
+
+local function internalEdit(url, id, message, callBackEvent)
+	if type(id) ~= "string" then
+		return false, "Bad argument @ 'edit' [Expected string at argument 1, got "..type(id).."]"
+	end
+	if not isValidID(id) then
+		outputDebugString("edit: ID may not be valid: "..id, 2)
+	end
+	if not isValidURL(url) then
+		outputDebugString("edit: URL may not be valid: "..url, 2)
+	end
+	if type(message) ~= "string" and type (message) ~= "table" then
+		return false, "Bad argument @ 'edit' [Expected string or table at argument 2, got "..type(message).."]"
+	end
+	if callBackEvent ~= nil then
+		if type(callBackEvent) ~= "table" then
+			return false, "Bad argument @ 'edit' [Expected table at argument 3, got "..type(callBackEvent).."]"
+		end
+		if type(callBackEvent.name) ~= "string" then
+			return false, "Bad argument @ 'edit' [Expected string at argument 3.name, got "..type(callBackEvent.name).."]"
+		end
+		if not (isElement(callBackEvent.source) or callBackEvent.source == root) then
+			return false, "Bad argument @ 'edit' [Expected element at argument 3.source, got "..type(callBackEvent.source).."]"
+		end
+		if callBackEvent.args ~= nil and type(callBackEvent.args) ~= "table" then
+			return false, "Bad argument @ 'edit' [Expected table at argument 3.args, got "..type(callBackEvent.args).."]"
+		end
+	end
+	local foundName = false
+	for name, webhookURL in pairs(WEB_HOOKS) do
+		if webhookURL == url then
+			foundName = name
+			break
+		end
+	end
+	return internalEditRequest(foundName, url, id, message, callBackEvent)
+end
+
+-- Exported function
+function edit(...)
+	local result, reason = internalEdit(...)
+	if (not result) and (LOG_ERRORS_DEBUG == true) then
+		outputDebugString(tostring(reason), 1)
+	end
+	return result, reason
+end
+addEventHandler("discord_webhooks:edit", root, edit, false)
 	
 addEventHandler("onResourceStart", resourceRoot, function()
 	if type(WEB_HOOKS) ~= "table" then

@@ -38,6 +38,25 @@ Sends a message to the webhook's channel via a given webhook URL.
 - a **request element** if the request was made successfully
 - a **string** containing the error message if there was an error before the request was made
 
+## `edit(url, messageID, message, callBackEvent)`
+
+Edits an existing message in the webhook's channel via a given webhook URL and message ID.
+
+**Required arguments**:
+
+- `url`: a **string** corresponding to a valid webhook URL
+- `messageID`: a **string** or **number** corresponding to the ID of the message to be edited
+- [`message`](#message): a **mixed variable** corresponding to a message to be sent
+
+**Optional arguments**:
+
+- [`callBackEvent`](#callbackevent): a **table** defining the event that will be triggered when the request: made
+
+**Returns**:
+
+- a **request element** if the request was made successfully
+- a **string** containing the error message if there was an error before the request was made
+
 ## `validateMessage(message)`
 
 Validates a message to be sent to a webhook.

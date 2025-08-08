@@ -8,6 +8,7 @@
 
 -- For these examples to work, you need to change the TEST_WEBHOOK_URL variable to a valid webhook URL.
 local TEST_WEBHOOK_URL = "https://discord.com/api/webhooks/1074743328454754376/Yr6IjUUou90uqy9SHv-vuGuoRjp9pIWEqPwpP4ezwdva8jtsurc0bVBGqBSU83BQDOVu"
+local TEST_MESSAGE_ID = "1403287485164818544" -- Message ID to edit
 
 -- Webhook names are assigned to URLs in the WEB_HOOKS table located in config.lua
 -- This will assign one on runtime, so you don't need to edit the config.lua file
@@ -202,6 +203,21 @@ local EXAMPLES = {
             outputChatBox(tostring(failReason), player, 255, 0, 0)
         end
     end,
+
+    --[[
+        Edit a text message with some variables to the webhook
+    ]]
+    function(player, vehicleName, vehicleID)
+        local request, failReason = exports.discord_webhooks:edit(
+            TEST_WEBHOOK_URL,
+            TEST_MESSAGE_ID,
+            "**"..getPlayerName(player).."** has created a `"..vehicleName.." (#"..vehicleID..")` at "..getElementZoneName(player)..".",
+            {name="testWebHook-result", source=root, args={player}}
+        )
+        if not request then
+            outputChatBox(tostring(failReason), player, 255, 0, 0)
+        end
+    end,
 }
 
 local function webHookExamples(thePlayer, cmd, id)
@@ -218,6 +234,8 @@ local function webHookExamples(thePlayer, cmd, id)
     end
     if id == 1 then
         EXAMPLES[id](thePlayer, "Landstalker", 400)
+    elseif id == 9 then
+        EXAMPLES[id](thePlayer, "Infernus", 411)
     else
         EXAMPLES[id](thePlayer)
     end
